@@ -5,6 +5,7 @@ import com.acj.spa.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +36,12 @@ public class UsuarioController {
         List<UsuarioDTO> usuarios = usuarioService.buscarTodos();
 
         return ResponseEntity.ok(usuarios);
+    }
+
+    @GetMapping(value = "{id}")
+    public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable String id) {
+        UsuarioDTO usuarioDTO = usuarioService.buscarPorId(id);
+
+        return ResponseEntity.ok(usuarioDTO);
     }
 }

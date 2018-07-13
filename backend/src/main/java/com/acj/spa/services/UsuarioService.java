@@ -25,4 +25,9 @@ public class UsuarioService {
         List<Usuario> usuarios = usuarioRepository.findAll();
         return usuarios.stream().map(UsuarioParser::toDTO).collect(Collectors.toList());
     }
+
+    public UsuarioDTO buscarPorId(String id) {
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        return UsuarioParser.toDTO(usuario);
+    }
 }
