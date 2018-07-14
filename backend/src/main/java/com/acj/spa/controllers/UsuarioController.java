@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.net.URI;
 import java.util.List;
 
@@ -23,6 +23,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:8100")
     public ResponseEntity<Void> cadastrar(@RequestBody UsuarioDTO usuarioDTO) {
         UsuarioDTO novoUsuario = usuarioService.salvar(usuarioDTO);
 
