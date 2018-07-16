@@ -23,7 +23,6 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:8100")
     public ResponseEntity<Void> cadastrar(@RequestBody UsuarioDTO usuarioDTO) {
         UsuarioDTO novoUsuario = usuarioService.salvar(usuarioDTO);
 
