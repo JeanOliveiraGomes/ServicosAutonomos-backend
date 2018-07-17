@@ -1,12 +1,23 @@
 package com.acj.spa.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class UsuarioDTO implements Serializable {
 
     private String id;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String nome;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Email(message = "Formato inválido")
     private String email;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Size(min = 8, max = 30, message = "A senha deve conter entre 8 e 30 caracteres")
     private String senha;
 
     public UsuarioDTO() {
