@@ -19,15 +19,18 @@ public class UsuarioDTO implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatório")
     @Size(min = 8, max = 30, message = "A senha deve conter entre 8 e 30 caracteres")
     private String senha;
+    
+    private boolean isAdmin;
 
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(String id, String nome, String email, String senha) {
+    public UsuarioDTO(String id, String nome, String email, String senha, boolean isAdmin) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.isAdmin = isAdmin;
     }
 
     public String getId() {
@@ -61,4 +64,13 @@ public class UsuarioDTO implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+    
 }

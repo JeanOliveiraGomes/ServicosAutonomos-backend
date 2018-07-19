@@ -25,11 +25,12 @@ public class Usuario implements Serializable {
 	public Usuario() {
     }
 
-    public Usuario(String id, String nome, String email, String senha) {
+    public Usuario(String id, String nome, String email, String senha, boolean isAdmin) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.isAdmin = isAdmin;
     }
 
 	public String getId() {
