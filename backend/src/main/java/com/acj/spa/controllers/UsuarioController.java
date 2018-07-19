@@ -26,6 +26,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Void> cadastrar(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+    	usuarioDTO.setSenha(usuarioService.encpritografarBcripty(usuarioDTO.getSenha()));
         UsuarioDTO novoUsuario = usuarioService.salvar(usuarioDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novoUsuario.getId()).toUri();

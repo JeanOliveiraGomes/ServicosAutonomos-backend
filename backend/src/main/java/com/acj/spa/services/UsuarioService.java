@@ -5,6 +5,7 @@ import com.acj.spa.dto.parser.UsuarioParser;
 import com.acj.spa.entities.Usuario;
 import com.acj.spa.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,4 +31,10 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
         return UsuarioParser.toDTO(usuario);
     }
+    
+	//METODO DE ENCRIPTO PARA SENHAS
+	public String encpritografarBcripty(String senha) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.encode(senha);	
+	}
 }
