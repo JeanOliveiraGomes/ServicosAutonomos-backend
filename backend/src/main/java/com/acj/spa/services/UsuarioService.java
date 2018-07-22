@@ -32,6 +32,11 @@ public class UsuarioService {
         return UsuarioParser.toDTO(usuario);
     }
     
+    public UsuarioDTO buscarPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        return UsuarioParser.toDTO(usuario);
+    }
+    
 	//METODO DE ENCRIPTO PARA SENHAS
 	public String encpritografarBcripty(String senha) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
