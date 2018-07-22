@@ -2,11 +2,7 @@ package com.acj.spa.controllers;
 
 import com.acj.spa.dto.AnuncioDTO;
 import com.acj.spa.services.AnuncioService;
-import com.acj.spa.services.CategoriaService;
-import com.acj.spa.services.UsuarioService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,19 +22,11 @@ public class AnuncioController {
 
     @Autowired
     private AnuncioService anuncioService;
-    
-    @Autowired
-    private UsuarioService usuarioService;
-    @Autowired
-    private CategoriaService categoriaService;
 
-    //NECESSARIO PASSAR TOKEN E /ID DA CATEGORIA NA URL
-    @PostMapping(value="/{id}")
-    public ResponseEntity<Void> cadastrar(@RequestBody AnuncioDTO anuncioDTO,@PathVariable("id") String id, Authentication authenticatioToken) {
-        AnuncioDTO novoAnuncio = anuncioDTO;
-        novoAnuncio.setCategoria(categoriaService.findById(id));
-        novoAnuncio.setAnunciante(usuarioService.buscarPorEmail(authenticatioToken.getName()));
-        anuncioService.cadastrar(anuncioDTO);
+    @PostMapping
+    public ResponseEntity<Void> cadastrar(@RequestBody AnuncioDTO anuncioDTO, Authentication authenticatioToken) {
+        AnuncioDTO novoAnuncio = anuncioService.cadastrar(anuncioDTO, authenticatioToken.getName());
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novoAnuncio.getId()).toUri();
 
         return ResponseEntity.created(uri).build();

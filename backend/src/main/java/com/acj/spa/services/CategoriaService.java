@@ -20,7 +20,8 @@ public class CategoriaService {
     public Categoria salvar(Categoria categoria) {
         return categoriaRepository.save(categoria);
     }
-    public CategoriaDTO findById(String id) {
+
+    public CategoriaDTO buscarPorId(String id) {
         Categoria categoria = categoriaRepository.findById(id).orElse(null);
         return CategoriaParser.toDTO(categoria);
     }
