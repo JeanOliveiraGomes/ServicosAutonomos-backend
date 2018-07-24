@@ -2,6 +2,7 @@ package com.acj.spa.services;
 
 import com.acj.spa.dto.UsuarioDTO;
 import com.acj.spa.dto.parser.UsuarioParser;
+import com.acj.spa.entities.DadosProfissionais;
 import com.acj.spa.entities.Usuario;
 import com.acj.spa.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private DadosProfissionaisService dadosProfissionaisService;
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = UsuarioParser.toEntity(usuarioDTO);
@@ -42,4 +46,11 @@ public class UsuarioService {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder.encode(senha);	
 	}
+
+	public UsuarioDTO inserirDadosProfissionais(String email, DadosProfissionais dadosProfissionais) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        usuario.setDadosProfissionais(dadosProfissionaisService.cadastrar(dadosProfissionais));
+
+        return UsuarioParser.toDTO(usuarioRepository.save(usuario));
+    }
 }
