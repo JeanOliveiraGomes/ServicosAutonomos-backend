@@ -16,7 +16,15 @@ public class AnuncioService {
     @Autowired
     private AnuncioRepository anuncioRepository;
 
-    public AnuncioDTO cadastrar(AnuncioDTO anuncioDTO) {
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private CategoriaService categoriaService;
+
+    public AnuncioDTO cadastrar(AnuncioDTO anuncioDTO, String email) {
+        anuncioDTO.setCategoria(categoriaService.buscarPorId(anuncioDTO.getCategoria().getId()));
+        anuncioDTO.setAnunciante(usuarioService.buscarPorEmail(email));
         Anuncio anuncio = AnuncioParser.toEntity(anuncioDTO);
         return AnuncioParser.toDTO(anuncioRepository.save(anuncio));
     }

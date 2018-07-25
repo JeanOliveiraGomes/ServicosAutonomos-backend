@@ -1,9 +1,11 @@
 package com.acj.spa.controllers;
 
 import com.acj.spa.dto.UsuarioDTO;
+import com.acj.spa.entities.DadosProfissionais;
 import com.acj.spa.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +47,13 @@ public class UsuarioController {
     @GetMapping(value = "{id}")
     public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable String id) {
         UsuarioDTO usuarioDTO = usuarioService.buscarPorId(id);
+
+        return ResponseEntity.ok(usuarioDTO);
+    }
+
+    @PostMapping(value = "dados-profissionais")
+    public ResponseEntity<UsuarioDTO> inserirDadosProfissionais(@RequestBody DadosProfissionais dadosProfissionais, Authentication authentication) {
+        UsuarioDTO usuarioDTO = usuarioService.inserirDadosProfissionais(authentication.getName(), dadosProfissionais);
 
         return ResponseEntity.ok(usuarioDTO);
     }

@@ -26,16 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().configure(http);
-		http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/*").permitAll();	
-		http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/*").permitAll();
-		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/*").permitAll();
-		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/api/*").permitAll();
-
 		
-		//PERMITE URLS PARA USUARIO COM PADRAO /USER
-		//http.authorizeRequests().antMatchers(HttpMethod.PUT,"/user").permitAll();	
-		http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/login").permitAll();
-		//http.authorizeRequests().antMatchers(HttpMethod.GET,"/job").permitAll();
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll();
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").permitAll();
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/categorias").permitAll();
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "protected/anuncios/**").permitAll();
+		
 		//BLOQUEIA TODOS AS URLs NÃO MAPEADAS
 		//http.authorizeRequests().anyRequest().authenticated();
 		//MAPEA URLS COMO PADRAO /ADMIN E / PROTECTED PARA SEREM ACESSADAS APENAS COM AUTORIZAÇÃO DE USER OU ADMIN
