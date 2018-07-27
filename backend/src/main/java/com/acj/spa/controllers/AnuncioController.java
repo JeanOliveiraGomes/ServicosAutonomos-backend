@@ -38,6 +38,13 @@ public class AnuncioController {
 
         return ResponseEntity.ok(anuncioDTOList);
     }
+    
+    @GetMapping(value = "/busca/{titulo}")
+    public ResponseEntity<List<AnuncioDTO>> buscarPorTitulo(@PathVariable String titulo) {
+        List<AnuncioDTO> anuncioDTOList = anuncioService.buscaPorTitulo(titulo);
+
+        return ResponseEntity.ok(anuncioDTOList);
+    }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<AnuncioDTO> buscarPorId(@PathVariable String id) {

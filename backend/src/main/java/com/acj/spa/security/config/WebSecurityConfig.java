@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().configure(http);
 		
 		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll();
-		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").permitAll();
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").permitAll();;
 		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/categorias").permitAll();
 		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "protected/anuncios/**").permitAll();
 		

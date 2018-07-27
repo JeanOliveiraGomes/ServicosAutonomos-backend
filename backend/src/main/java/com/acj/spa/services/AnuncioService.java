@@ -33,6 +33,11 @@ public class AnuncioService {
         List<Anuncio> anuncios = anuncioRepository.findAll();
         return anuncios.stream().map(AnuncioParser::toDTO).collect(Collectors.toList());
     }
+    
+    public List<AnuncioDTO> buscaPorTitulo(String titulo) {
+    	List<Anuncio> anunciosPeloTitulo = anuncioRepository.findByTituloLikeIgnoreCase(titulo);
+        return anunciosPeloTitulo.stream().map(AnuncioParser :: toDTO).collect(Collectors.toList());
+    }
 
     public AnuncioDTO buscarPorId(String id) {
         Anuncio anuncio = anuncioRepository.findById(id).orElse(null);
