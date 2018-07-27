@@ -1,6 +1,7 @@
 package com.acj.spa.dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class AnuncioDTO implements Serializable {
 
@@ -9,19 +10,31 @@ public class AnuncioDTO implements Serializable {
     private String descricao;
     private UsuarioDTO anunciante;
     private CategoriaDTO categoria;
+    private LocalDateTime dataHora;
 
     public AnuncioDTO() {
     }
 
-    public AnuncioDTO(String id, String titulo, String descricao, UsuarioDTO anunciante, CategoriaDTO categoria) {
+    public AnuncioDTO(String id, String titulo, String descricao, UsuarioDTO anunciante, CategoriaDTO categoria, LocalDateTime dataHora) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.anunciante = anunciante;
         this.categoria = categoria;
+        this.dataHora = dataHora;
     }
 
-    public String getId() {
+    
+    
+    public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
+	}
+
+	public String getId() {
         return id;
     }
 

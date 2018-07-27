@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Document
 public class Anuncio implements Serializable {
@@ -13,6 +14,7 @@ public class Anuncio implements Serializable {
     private String id;
     private String titulo;
     private String descricao;
+    private LocalDateTime dataHora;
 
     @DBRef
     private Categoria categoria;
@@ -23,15 +25,26 @@ public class Anuncio implements Serializable {
     public Anuncio() {
     }
 
-    public Anuncio(String id, String titulo, String descricao, Categoria categoria, Usuario usuario) {
+    public Anuncio(String id, String titulo, String descricao, Categoria categoria, Usuario usuario,LocalDateTime dataHora ) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.categoria = categoria;
         this.usuario = usuario;
+        this.dataHora = dataHora;
     }
+    
+    
 
-    public String getId() {
+    public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
+	}
+
+	public String getId() {
         return id;
     }
 

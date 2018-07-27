@@ -7,7 +7,12 @@ import com.acj.spa.repositories.AnuncioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +30,12 @@ public class AnuncioService {
     public AnuncioDTO cadastrar(AnuncioDTO anuncioDTO, String email) {
         anuncioDTO.setCategoria(categoriaService.buscarPorId(anuncioDTO.getCategoria().getId()));
         anuncioDTO.setAnunciante(usuarioService.buscarPorEmail(email));
+        
+        LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        agora.format(formatter);
+        anuncioDTO.setDataHora(agora);
+        
         Anuncio anuncio = AnuncioParser.toEntity(anuncioDTO);
         return AnuncioParser.toDTO(anuncioRepository.save(anuncio));
     }
