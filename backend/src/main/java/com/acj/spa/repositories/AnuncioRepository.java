@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AnuncioRepository extends MongoRepository<Anuncio, String> {
 
-	List<Anuncio> findByOrderByDataHoraAsc();
+	List<Anuncio> findByOrderByDataHoraDesc();
 	
-	List<Anuncio> findByTituloLikeIgnoreCaseOrderByDataHoraAsc(String titulo);
+	List<Anuncio> findByTituloLikeIgnoreCaseOrderByDataHoraDesc(String titulo);
 }

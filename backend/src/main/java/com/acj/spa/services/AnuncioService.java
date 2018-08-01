@@ -41,12 +41,12 @@ public class AnuncioService {
     }
 
     public List<AnuncioDTO> buscarTodos() {
-        List<Anuncio> anuncios = anuncioRepository.findByOrderByDataHoraAsc();
+        List<Anuncio> anuncios = anuncioRepository.findByOrderByDataHoraDesc();
         return anuncios.stream().map(AnuncioParser::toDTO).collect(Collectors.toList());
     }
     
     public List<AnuncioDTO> buscaPorTitulo(String titulo) {
-    	List<Anuncio> anunciosPeloTitulo = anuncioRepository.findByTituloLikeIgnoreCaseOrderByDataHoraAsc(titulo);
+    	List<Anuncio> anunciosPeloTitulo = anuncioRepository.findByTituloLikeIgnoreCaseOrderByDataHoraDesc(titulo);
         return anunciosPeloTitulo.stream().map(AnuncioParser :: toDTO).collect(Collectors.toList());
     }
 
