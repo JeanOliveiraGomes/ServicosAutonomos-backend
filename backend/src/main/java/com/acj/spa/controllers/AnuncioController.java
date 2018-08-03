@@ -35,7 +35,7 @@ public class AnuncioController {
     @GetMapping
     public ResponseEntity<List<AnuncioDTO>> buscarTodos() {
         List<AnuncioDTO> anuncioDTOList = anuncioService.buscarTodos();
-
+        
         return ResponseEntity.ok(anuncioDTOList);
     }
     
