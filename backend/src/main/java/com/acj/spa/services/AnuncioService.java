@@ -2,17 +2,17 @@ package com.acj.spa.services;
 
 import com.acj.spa.dto.AnuncioDTO;
 import com.acj.spa.dto.parser.AnuncioParser;
+import com.acj.spa.dto.parser.UsuarioParser;
 import com.acj.spa.entities.Anuncio;
+import com.acj.spa.entities.Usuario;
 import com.acj.spa.repositories.AnuncioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,4 +54,26 @@ public class AnuncioService {
         Anuncio anuncio = anuncioRepository.findById(id).orElse(null);
         return AnuncioParser.toDTO(anuncio);
     }
+    
+    
+    public void candidatar(String anuncioId, String usuarioId) {
+       Anuncio anuncio =  anuncioRepository.findById(anuncioId).orElse(null);
+       Usuario usuario = UsuarioParser.toEntity(usuarioService.buscarPorEmail(usuarioId));
+           
+           if(!(usuario.getId().equals(anuncio.getUsuario().getId()))) {
+        	   List<Usuario> users = new ArrayList<Usuario>();
+               if(anuncio.getCandidatos() != null) {
+            	   users = anuncio.getCandidatos();
+            	}
+            	if(users.contains(usuario)) {
+            		   throw new DataIntegrityViolationException("Usuario já cadastrado");
+            	}else {
+            		   users.add(usuario);
+                       anuncio.setCandidatos(users);
+                       anuncioRepository.save(anuncio);
+            	   }
+           }else {
+        	   throw new DataIntegrityViolationException("Regras de candidatura burladas");
+           }
+    }       
 }

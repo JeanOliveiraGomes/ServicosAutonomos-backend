@@ -13,13 +13,13 @@ public class AnuncioParser {
         UsuarioDTO usuarioDTO = UsuarioParser.toDTO(anuncio.getUsuario());
         CategoriaDTO categoriaDTO = CategoriaParser.toDTO(anuncio.getCategoria());
 
-        return new AnuncioDTO(anuncio.getId(), anuncio.getTitulo(), anuncio.getDescricao(), usuarioDTO, categoriaDTO, anuncio.getDataHora());
+        return new AnuncioDTO(anuncio.getId(), anuncio.getTitulo(), anuncio.getDescricao(), usuarioDTO, categoriaDTO, anuncio.getDataHora(),anuncio.getCandidatos());
     }
 
     public static Anuncio toEntity(AnuncioDTO anuncioDTO) {
         Usuario usuario = UsuarioParser.toEntity(anuncioDTO.getAnunciante());
         Categoria categoria = CategoriaParser.toEntity(anuncioDTO.getCategoria());
 
-        return new Anuncio(anuncioDTO.getId(), anuncioDTO.getTitulo(), anuncioDTO.getDescricao(), categoria, usuario, anuncioDTO.getDataHora());
+        return new Anuncio(anuncioDTO.getId(), anuncioDTO.getTitulo(), anuncioDTO.getDescricao(), categoria, usuario, anuncioDTO.getDataHora(),anuncioDTO.getCandidatos());
     }
 }

@@ -2,6 +2,9 @@ package com.acj.spa.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.acj.spa.entities.Usuario;
 
 public class AnuncioDTO implements Serializable {
 
@@ -11,22 +14,32 @@ public class AnuncioDTO implements Serializable {
     private UsuarioDTO anunciante;
     private CategoriaDTO categoria;
     private LocalDateTime dataHora;
+    private List<Usuario> candidatos;
 
     public AnuncioDTO() {
     }
 
-    public AnuncioDTO(String id, String titulo, String descricao, UsuarioDTO anunciante, CategoriaDTO categoria, LocalDateTime dataHora) {
+    public AnuncioDTO(String id, String titulo, String descricao, UsuarioDTO anunciante, CategoriaDTO categoria, LocalDateTime dataHora,List<Usuario> candidatos) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.anunciante = anunciante;
         this.categoria = categoria;
         this.dataHora = dataHora;
+        this.candidatos =candidatos;
     }
 
     
     
-    public LocalDateTime getDataHora() {
+    public List<Usuario> getCandidatos() {
+		return candidatos;
+	}
+
+	public void setCandidatos(List<Usuario> candidatos) {
+		this.candidatos = candidatos;
+	}
+
+	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
 

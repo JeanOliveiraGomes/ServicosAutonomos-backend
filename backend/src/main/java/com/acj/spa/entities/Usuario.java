@@ -85,4 +85,14 @@ public class Usuario implements Serializable {
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Usuario) {
+        	Usuario qualquer = (Usuario) obj;
+          return this.id.equals(qualquer.id);
+        }else {
+          return false;
+        }
+      }
 }

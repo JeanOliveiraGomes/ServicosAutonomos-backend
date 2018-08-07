@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document
 public class Anuncio implements Serializable {
@@ -21,22 +22,34 @@ public class Anuncio implements Serializable {
 
     @DBRef
     private Usuario usuario;
+    
+    @DBRef
+    private List<Usuario> candidatos;
 
     public Anuncio() {
     }
 
-    public Anuncio(String id, String titulo, String descricao, Categoria categoria, Usuario usuario,LocalDateTime dataHora ) {
+    public Anuncio(String id, String titulo, String descricao, Categoria categoria, Usuario usuario,LocalDateTime dataHora,List<Usuario> candidatos ) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.categoria = categoria;
         this.usuario = usuario;
         this.dataHora = dataHora;
+        this.candidatos= candidatos;
     }
     
     
 
-    public LocalDateTime getDataHora() {
+    public List<Usuario> getCandidatos() {
+		return candidatos;
+	}
+
+	public void setCandidatos(List<Usuario> candidatos) {
+		this.candidatos = candidatos;
+	}
+
+	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
 
@@ -83,4 +96,14 @@ public class Anuncio implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Usuario) {
+        	Usuario qualquer = (Usuario) obj;
+          return this.id.equals(qualquer.getId());
+        }else {
+          return false;
+        }
+      }
 }
