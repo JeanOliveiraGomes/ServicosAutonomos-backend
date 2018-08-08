@@ -59,21 +59,40 @@ public class AnuncioService {
     public void candidatar(String anuncioId, String usuarioId) {
        Anuncio anuncio =  anuncioRepository.findById(anuncioId).orElse(null);
        Usuario usuario = UsuarioParser.toEntity(usuarioService.buscarPorEmail(usuarioId));
-           
-           if(!(usuario.getId().equals(anuncio.getUsuario().getId()))) {
-        	   List<Usuario> users = new ArrayList<Usuario>();
-               if(anuncio.getCandidatos() != null) {
-            	   users = anuncio.getCandidatos();
-            	}
-            	if(users.contains(usuario)) {
-            		   throw new DataIntegrityViolationException("Usuario já cadastrado");
-            	}else {
-            		   users.add(usuario);
-                       anuncio.setCandidatos(users);
-                       anuncioRepository.save(anuncio);
-            	   }
-           }else {
-        	   throw new DataIntegrityViolationException("Regras de candidatura burladas");
-           }
-    }       
+       		
+       if (this.candidaturaValida(usuario, anuncio)) {
+    	   List<Usuario> candidatos = new ArrayList<Usuario>();
+    	   if (anuncio.getCandidatos() != null) {
+    		   candidatos = anuncio.getCandidatos();
+    	   }
+       	   candidatos.add(usuario);
+           anuncio.setCandidatos(candidatos);
+           anuncioRepository.save(anuncio);
+       }else{
+    	   System.out.println("Candidatura Invalida");
+    	   throw new DataIntegrityViolationException("Erro usuario ja existe ou é dono do anuncio");
+       }	   
+    } 
+    
+    
+    public boolean candidaturaValida(Usuario usuario, Anuncio anuncio) {
+    	boolean candidaturaValida = false;
+    	
+    	if (usuario.getId().equals(anuncio.getUsuario().getId())) {
+    		candidaturaValida = false;
+		}else{
+			 List<Usuario> candidatos = new ArrayList<Usuario>();
+			 if(anuncio.getCandidatos() != null) {
+				 candidatos = anuncio.getCandidatos();
+				 if(candidatos.contains(usuario)) {
+					 candidaturaValida = false;
+				 }else {
+					 candidaturaValida = true;
+				 }
+			 }else {
+				 candidaturaValida=true;
+			 }
+     	}
+    	return candidaturaValida;
+    }
 }
