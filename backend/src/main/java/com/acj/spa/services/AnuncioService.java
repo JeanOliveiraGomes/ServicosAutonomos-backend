@@ -45,6 +45,12 @@ public class AnuncioService {
         return anuncios.stream().map(AnuncioParser::toDTO).collect(Collectors.toList());
     }
     
+    public List<AnuncioDTO> listarMeusAnuncios(String idUsuario) {
+    	Usuario usuario = UsuarioParser.toEntity(usuarioService.buscarPorEmail(idUsuario));
+        List<Anuncio> anuncios = anuncioRepository.findByUsuario(usuario);
+        return anuncios.stream().map(AnuncioParser::toDTO).collect(Collectors.toList());
+    }
+    
     public List<AnuncioDTO> buscaPorTitulo(String titulo) {
     	List<Anuncio> anunciosPeloTitulo = anuncioRepository.findByTituloLikeIgnoreCaseOrderByDataHoraDesc(titulo);
         return anunciosPeloTitulo.stream().map(AnuncioParser :: toDTO).collect(Collectors.toList());

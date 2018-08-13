@@ -37,7 +37,14 @@ public class AnuncioController {
     public void candidatar(@RequestBody String anuncioId, Authentication authenticatioToken) {
     	anuncioService.candidatar(anuncioId, authenticatioToken.getName());
     }
+    
+    @GetMapping(value = "/meus-anuncios")
+    public ResponseEntity<List<AnuncioDTO>> listarMeusAnucios(Authentication authenticatioToken) {
+        List<AnuncioDTO> anuncioDTOList = anuncioService.listarMeusAnuncios(authenticatioToken.getName());
 
+        return ResponseEntity.ok(anuncioDTOList);
+    }
+    
     @GetMapping
     public ResponseEntity<List<AnuncioDTO>> buscarTodos() {
         List<AnuncioDTO> anuncioDTOList = anuncioService.buscarTodos();
