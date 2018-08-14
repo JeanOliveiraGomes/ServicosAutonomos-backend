@@ -28,8 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().configure(http);
 		
 		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll();
-		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").permitAll();;
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").permitAll();
 		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/categorias").permitAll();
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.GET, "protected/anuncios/**").permitAll();
 		
 		//BLOQUEIA TODOS AS URLs NÃO MAPEADAS
 		http.authorizeRequests().anyRequest().authenticated();
