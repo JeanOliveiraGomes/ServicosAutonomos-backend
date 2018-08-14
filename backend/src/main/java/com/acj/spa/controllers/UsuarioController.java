@@ -60,4 +60,9 @@ public class UsuarioController {
 
         return ResponseEntity.ok(usuarioDTO);
     }
+    @GetMapping(value = "protected")
+    public UsuarioDTO buscarPorId(Authentication authenticatio) {
+        UsuarioDTO usuarioDTO = usuarioService.buscarPorEmail(authenticatio.getName());
+        return usuarioDTO;
+    }
 }
