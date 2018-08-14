@@ -1,8 +1,10 @@
 package com.acj.spa.controllers;
 
-import com.acj.spa.dto.UsuarioDTO;
-import com.acj.spa.entities.DadosProfissionais;
-import com.acj.spa.services.UsuarioService;
+import java.net.URI;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.util.List;
+import com.acj.spa.dto.UsuarioDTO;
+import com.acj.spa.entities.DadosProfissionais;
+import com.acj.spa.services.UsuarioService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping(value = "usuarios")
