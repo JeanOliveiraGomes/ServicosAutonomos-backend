@@ -30,11 +30,13 @@ public class Usuario implements Serializable {
 	public Usuario() {
     }
 
-    public Usuario(String id, String nome, String email, String senha, boolean isAdmin) {
-        this.id = id;
+    public Usuario(String id, String nome, String email, String senha, DadosProfissionais dadosProfissionais, boolean isAdmin) {
+       
+    	this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.dadosProfissionais = dadosProfissionais;
         this.isAdmin = isAdmin;
     }
 

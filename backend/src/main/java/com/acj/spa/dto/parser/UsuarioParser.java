@@ -7,11 +7,13 @@ public class UsuarioParser {
 
 	public static UsuarioDTO toDTO(Usuario usuario) {
 
-		return new UsuarioDTO(usuario.getId(), usuario.getNome(), usuario.getEmail(), null, usuario.isAdmin());
+		return new UsuarioDTO(usuario.getId(), usuario.getNome(),usuario.getEmail(),usuario.getSenha(), usuario.getDadosProfissionais(), usuario.isAdmin());
 	}
-
+	
 	public static Usuario toEntity(UsuarioDTO usuarioDTO) {
-		return new Usuario(usuarioDTO.getId(), usuarioDTO.getNome(), usuarioDTO.getEmail(), usuarioDTO.getSenha(),
+		return new Usuario(usuarioDTO.getId(), usuarioDTO.getNome(), usuarioDTO.getEmail(), usuarioDTO.getSenha(), usuarioDTO.getDadosProfissionais(),
 				usuarioDTO.isAdmin());
 	}
+
+	
 }
