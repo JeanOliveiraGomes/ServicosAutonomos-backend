@@ -8,6 +8,8 @@ import com.acj.spa.entities.Usuario;
 import com.acj.spa.repositories.AnuncioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +44,12 @@ public class AnuncioService {
 
     public List<AnuncioDTO> buscarTodos() {
         List<Anuncio> anuncios = anuncioRepository.findByOrderByDataHoraDesc();
+        return anuncios.stream().map(AnuncioParser::toDTO).collect(Collectors.toList());
+    }
+    
+    public List<AnuncioDTO> buscarTodosPaginadoOrdenadoHora(Pageable page) {
+    	
+        List<Anuncio> anuncios = anuncioRepository.findByOrderByDataHoraDesc(page);
         return anuncios.stream().map(AnuncioParser::toDTO).collect(Collectors.toList());
     }
     

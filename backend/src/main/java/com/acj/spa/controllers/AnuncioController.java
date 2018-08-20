@@ -1,8 +1,10 @@
 package com.acj.spa.controllers;
 
-import com.acj.spa.dto.AnuncioDTO;
-import com.acj.spa.services.AnuncioService;
+import java.net.URI;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.util.List;
+import com.acj.spa.dto.AnuncioDTO;
+import com.acj.spa.repositories.AnuncioRepository;
+import com.acj.spa.services.AnuncioService;
 
 @RestController
 @RequestMapping(value = "protected/anuncios")
@@ -23,6 +26,8 @@ public class AnuncioController {
 
     @Autowired
     private AnuncioService anuncioService;
+    
+   
 
     @PostMapping
     public ResponseEntity<Void> cadastrar(@RequestBody AnuncioDTO anuncioDTO, Authentication authenticatioToken) {
@@ -48,9 +53,21 @@ public class AnuncioController {
     @GetMapping
     public ResponseEntity<List<AnuncioDTO>> buscarTodos() {
         List<AnuncioDTO> anuncioDTOList = anuncioService.buscarTodos();
+     
         
         return ResponseEntity.ok(anuncioDTOList);
     }
+    
+    @GetMapping(value = "/servico-paginado")
+    public ResponseEntity<List<AnuncioDTO>> buscarTodosPaginado(Pageable page) {
+        List<AnuncioDTO> anuncioDTOList = anuncioService.buscarTodosPaginadoOrdenadoHora(page);
+     
+        
+        return ResponseEntity.ok(anuncioDTOList);
+    }
+    
+   
+    
     
     @GetMapping(value = "/busca/{titulo}")
     public ResponseEntity<List<AnuncioDTO>> buscarPorTitulo(@PathVariable String titulo) {
