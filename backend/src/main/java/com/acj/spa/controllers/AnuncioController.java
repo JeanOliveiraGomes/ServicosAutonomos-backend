@@ -1,8 +1,10 @@
 package com.acj.spa.controllers;
 
 import com.acj.spa.dto.AnuncioDTO;
+import com.acj.spa.entities.Anuncio;
 import com.acj.spa.services.AnuncioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,13 @@ public class AnuncioController {
 
     @Autowired
     private AnuncioService anuncioService;
-
+    
+    
+    @PostMapping (value = "/deletar") 
+	public void deletarMeuAnuncio(@RequestBody String anuncioId, Authentication authenticatioToken){
+		 anuncioService.deletarMeuAnuncio(anuncioId, authenticatioToken.getName());
+	}
+	
     @PostMapping
     public ResponseEntity<Void> cadastrar(@RequestBody AnuncioDTO anuncioDTO, Authentication authenticatioToken) {
         AnuncioDTO novoAnuncio = anuncioService.cadastrar(anuncioDTO, authenticatioToken.getName());
