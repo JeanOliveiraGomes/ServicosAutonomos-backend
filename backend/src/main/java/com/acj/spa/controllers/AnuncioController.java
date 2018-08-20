@@ -3,8 +3,14 @@ package com.acj.spa.controllers;
 import java.net.URI;
 import java.util.List;
 
+import com.acj.spa.dto.AnuncioDTO;
+import com.acj.spa.entities.Anuncio;
+import com.acj.spa.services.AnuncioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +34,13 @@ public class AnuncioController {
     private AnuncioService anuncioService;
     
    
-
+    
+    
+    @PostMapping (value = "/deletar") 
+	public void deletarMeuAnuncio(@RequestBody String anuncioId, Authentication authenticatioToken){
+		 anuncioService.deletarMeuAnuncio(anuncioId, authenticatioToken.getName());
+	}
+	
     @PostMapping
     public ResponseEntity<Void> cadastrar(@RequestBody AnuncioDTO anuncioDTO, Authentication authenticatioToken) {
         AnuncioDTO novoAnuncio = anuncioService.cadastrar(anuncioDTO, authenticatioToken.getName());
@@ -65,9 +77,6 @@ public class AnuncioController {
         
         return ResponseEntity.ok(anuncioDTOList);
     }
-    
-   
-    
     
     @GetMapping(value = "/busca/{titulo}")
     public ResponseEntity<List<AnuncioDTO>> buscarPorTitulo(@PathVariable String titulo) {

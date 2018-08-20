@@ -88,6 +88,17 @@ public class AnuncioService {
        }	   
     } 
     
+    public void deletarMeuAnuncio(String anuncioId, String usuarioId) {
+    	Anuncio anuncio =  anuncioRepository.findById(anuncioId).orElse(null);
+    	if (anuncio.getUsuario().getEmail().equals(usuarioId)) {
+    		anuncioRepository.delete(anuncio);
+		}else{
+	    	   System.out.println("Usuario Tentando apagar anuncio pertecente a outro usuario");
+	    	   throw new DataIntegrityViolationException("Usuario não é dono do anuncio");
+	    }	   
+    	
+    }
+    
     
     public boolean candidaturaValida(Usuario usuario, Anuncio anuncio) {
     	boolean candidaturaValida = false;
