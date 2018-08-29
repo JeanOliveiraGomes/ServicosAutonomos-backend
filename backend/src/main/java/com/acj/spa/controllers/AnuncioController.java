@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.acj.spa.dto.AnuncioDTO;
 import com.acj.spa.entities.Anuncio;
+import com.acj.spa.entities.Usuario;
 import com.acj.spa.services.AnuncioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -90,5 +91,11 @@ public class AnuncioController {
         AnuncioDTO anuncioDTO = anuncioService.buscarPorId(id);
 
         return ResponseEntity.ok(anuncioDTO);
+    }
+    
+    @GetMapping(value = "/candidatos/{id}")
+    public List<Usuario> buscarCandidatosPorId(@PathVariable String id) {
+        List<Usuario> candidatos = anuncioService.buscarPorId(id).getCandidatos();
+        return candidatos;
     }
 }
